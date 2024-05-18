@@ -10,7 +10,7 @@ function EditTopicForm({ id, title, description }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`http://localhost:3000/api/topics/${id}`, {
+      const res = await fetch(`process.env.SITE_URL${id}`, {
         method: "PUT",
         headers: {
           "Content-type": "application/json",
