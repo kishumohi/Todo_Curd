@@ -1,10 +1,26 @@
 import EditTopicForm from "@/components/EditTopicForm.jsx";
-import React from "react";
 
-function EditTopics() {
+const getTopicById = async (id) => {
+  try {
+    const res = await fetch(`http://localhost:3000/api/topics/${id}`, {
+      cache: "no-store",
+    });
+    if (!res.ok) {
+      throw new Error("Failed to fetch topic");
+    }
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+async function EditTopics({ params }) {
+  const { id } = params;
+  const { topic } = await getTopicById(id);
+  const { title, description } = topic;
   return (
     <>
-      <EditTopicForm />
+      <EditTopicForm id={id} title={title} description={description} />
     </>
   );
 }

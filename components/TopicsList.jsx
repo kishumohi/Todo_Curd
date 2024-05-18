@@ -1,24 +1,44 @@
-import React from "react";
-import RemoveBtn from "./RemoveBtn.jsx";
-import Link from "next/link.js";
+import Link from "next/link";
+import RemoveBtn from "./RemoveBtn";
 import { HiPencilAlt } from "react-icons/hi";
 
-function TopicsList() {
+const getTopics = async () => {
+  try {
+    const res = await fetch("http://localhost:3000/api/topics", {
+      cache: "no-store",
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed To Fetch");
+    }
+    return res.json();
+  } catch (error) {
+    console.log("Fetch Api Error : ", error);
+  }
+};
+
+async function TopicsList() {
+  const { topics } = await getTopics();
   return (
     <>
-      <div className="p-4 border border-slate-300 my-3 flex justify-between items-start gap-5">
-        <div>
-          <h2 className="font-bold text-2xl">Topic Title</h2>
-          <div>Topic Description</div>
-        </div>
+      {topics.map((t) => (
+        <div
+          key={t._id}
+          className="p-4 border border-slate-300 my-3 flex justify-between items-start gap-5"
+        >
+          <div>
+            <h2 className="font-bold text-2xl">{t.title}</h2>
+            <div>{t.description}</div>
+          </div>
 
-        <div className="flex gap-2">
-          <RemoveBtn />
-          <Link href={"/editTopic/1"}>
-            <HiPencilAlt size={24} />
-          </Link>
+          <div className="flex gap-2">
+            <RemoveBtn id={t._id} />
+            <Link href={`/editTopic/${t._id}`}>
+              <HiPencilAlt size={24} />
+            </Link>
+          </div>
         </div>
-      </div>
+      ))}
     </>
   );
 }
