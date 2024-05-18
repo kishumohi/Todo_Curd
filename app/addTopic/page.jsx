@@ -15,7 +15,7 @@ function AddTopic() {
       return;
     }
     try {
-      const res = await fetch(process.env.SITE_URL, {
+      const res = await fetch(`${process.env.SITE_URL}`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
