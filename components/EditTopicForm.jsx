@@ -10,13 +10,14 @@ function EditTopicForm({ id, title, description }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`http://localhost:3000/api/topics/${id}`, {
+      const res = await fetch(`${process.env.SITE_URL}/${id}`, {
         method: "PUT",
         headers: {
           "Content-type": "application/json",
         },
         body: JSON.stringify({ newTitle, newDescription }),
       });
+      // console.log(process.env.SITE_URL);
       if (!res.ok) {
         throw new Error("Failed to update topic");
       }

@@ -15,13 +15,14 @@ function AddTopic() {
       return;
     }
     try {
-      const res = await fetch(`http://localhost:3000/api/topics/`, {
+      const res = await fetch(`${process.env.SITE_URL}/`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
         },
         body: JSON.stringify({ title, description }),
       });
+
       if (res.ok) {
         router.push("/");
         router.refresh();
