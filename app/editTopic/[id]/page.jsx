@@ -3,7 +3,7 @@ import EditTopicForm from "@/components/EditTopicForm.jsx";
 const getTopicById = async (id) => {
   try {
     const res = await fetch(`${process.env.SITE_URL}/${id}`, {
-      cache: "force-cache" | "no-store",
+      cache: "no-store",
     });
     if (!res.ok) {
       throw new Error("Failed to fetch topic");
