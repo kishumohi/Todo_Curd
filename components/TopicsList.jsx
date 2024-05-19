@@ -5,7 +5,7 @@ import { HiPencilAlt } from "react-icons/hi";
 const getTopics = async () => {
   try {
     const res = await fetch(process.env.SITE_URL, {
-      cache: "no-store",
+      cache: "force-cache" | "no-store",
     });
 
     if (!res.ok) {
