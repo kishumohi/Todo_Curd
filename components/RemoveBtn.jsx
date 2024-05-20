@@ -12,6 +12,7 @@ function RemoveBtn({ id }) {
         method: "DELETE",
       });
       if (res.ok) {
+        router.push("/");
         router.refresh();
       }
     }
