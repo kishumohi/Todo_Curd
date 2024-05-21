@@ -1,12 +1,16 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation.js";
 
 function EditTopicForm({ id, title, description }) {
   const [newTitle, setNewTitle] = useState(title);
   const [newDescription, setNewDescription] = useState(description);
   const router = useRouter();
-
+  // console.log(newTitle);
+  useEffect(() => {
+    setNewTitle(title);
+    setNewDescription(description);
+  }, [title, description]);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -22,7 +26,7 @@ function EditTopicForm({ id, title, description }) {
         throw new Error("Failed to update topic");
       }
       router.push("/");
-      router.refresh();
+      // router.refresh();
     } catch (error) {
       console.log(error);
     }

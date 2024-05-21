@@ -1,26 +1,35 @@
+"use client";
 import EditTopicForm from "@/components/EditTopicForm.jsx";
+import { useParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
-const getTopicById = async (id) => {
-  try {
-    const res = await fetch(`${process.env.API_URI}/${id}`, {
-      cache: "no-store",
-    });
-    if (!res.ok) {
-      throw new Error("Failed to fetch topic");
+function EditTopics() {
+  const [topicinfo, setTopicInfo] = useState();
+  // const [topicinfo, setTopicInfo] = useState();
+  // const [topicinfo, setTopicInfo] = useState();
+  const router = useParams();
+  const id = router.id;
+  // console.log(router.id);
+  // console.log(topicinfo);
+  useEffect(() => {
+    // const id = id;
+    async function getTopicsById(id) {
+      const data = await fetch(`/api/topics/${id}`);
+      setTopicInfo(await data.json());
     }
-    return res.json();
-  } catch (error) {
-    console.log(error);
-  }
-};
+    getTopicsById(id);
+    // console.log(id);
+  }, []);
 
-async function EditTopics({ params }) {
-  const { id } = params;
-  const { topic } = await getTopicById(id);
-  const { title, description } = topic;
   return (
     <>
-      <EditTopicForm id={id} title={title} description={description} />
+      {/* EditTopics */}
+      {/* <h1>{topicinfo?.topic?.title}</h1> */}
+      <EditTopicForm
+        id={topicinfo?.topic?._id}
+        title={topicinfo?.topic?.title}
+        description={topicinfo?.topic?.description}
+      />
     </>
   );
 }

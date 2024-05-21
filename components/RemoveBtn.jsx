@@ -8,12 +8,12 @@ function RemoveBtn({ id }) {
   const removeTopic = async () => {
     const confirmed = confirm("Are You Sure ?");
     if (confirmed) {
-      const res = await fetch(`${process.env.SITE_URL}?id=${id}`, {
+      const res = await fetch(`/api/topics/?id=${id}`, {
         method: "DELETE",
       });
       if (res.ok) {
         router.push("/");
-        router.refresh();
+        // router.refresh();
       }
     }
   };
