@@ -12,7 +12,7 @@ function TopicsList() {
   useEffect(() => {
     async function getTopics() {
       try {
-        const res = await fetch(process.env.SITE_URL, {
+        const res = await fetch("/api/topics", {
           cache: "no-store",
         });
 
